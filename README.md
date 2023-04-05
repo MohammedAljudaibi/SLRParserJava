@@ -15,9 +15,9 @@ This is a **Java** program created for a university Compiler course (CPCS-302). 
 
 **SLR Parse Table**
 
-|State|action|||||        |goto|||
-|-----|--|--|--|--|---|---|----|---|---|---|
-|     |id| +| *| (| ) | $ |E|T|F|
+|State|action| | | |  |         | goto |  |  |
+|-----|--|--|--|--|---|---|----|---|---|
+|     |id| +| \*| (|) | $ |E|T|F|
 |0    |s5|  |  |s4|   |   |1|2|3|   
 |1    |  |s6|  |  |   |acc| | | |
 |2    |  |r2|s7|  |r2 |r2 | | | |  
@@ -38,23 +38,23 @@ _input_: An input string _w_ and an LR parsing table with functions _action_ and
 
 _output_: If _w_ is in _L(G)_, a bottom-up parser for _w_; otherwise, an error indication.
 
-_Method_: Initially, the parser has _s~0~_ on its stack, where _s~0~_  is the initial state, and w$ in the input buffer. The parser then executes the program until an accept or error action is encountered.
+_Method_: Initially, the parser has _s<sub>0</sub>_ on its stack, where _s<sub>0</sub>_  is the initial state, and w$ in the input buffer. The parser then executes the program until an accept or error action is encountered.
 
-set _ip_ to point to the first symbol of _w$_;
-**repeat forever begin** 
-&nbsp;&nbsp;&nbsp;let s be the state on top of the stack and
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *a* the symbol pointed to by *ip*
-&nbsp;&nbsp;&nbsp;**if** actions[s, a] = shift s' **then begin**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; push *a* then s' on top of the stack;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;advance *ip* to the next input symbol
-&nbsp;&nbsp;&nbsp;**end**
-**else if** *action* [s, a] = reudce A &rarr; B **then begin**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pop 2*|B| symbols off the stack;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; let s' be the state now in tp of the stack;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; push A then *goto*[s', A] on top of the stack;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output the production A &rarr; B
-&nbsp;&nbsp;&nbsp;**end**
-&nbsp;&nbsp;&nbsp;**else if** *action*[s, a] = accept **then**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**return**
-&nbsp;&nbsp;&nbsp;**else** *error()*
-**end**
+set _ip_ to point to the first symbol of _w$_;<br>
+**repeat forever begin**<br>
+&nbsp;&nbsp;&nbsp;let s be the state on top of the stack and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *a* the symbol pointed to by *ip*<br>
+&nbsp;&nbsp;&nbsp;**if** actions[s, a] = shift s' **then begin**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; push *a* then s' on top of the stack;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;advance *ip* to the next input symbol<br>
+&nbsp;&nbsp;&nbsp;**end**<br>
+**else if** *action* [s, a] = reudce A &rarr; B **then begin**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pop 2*|B| symbols off the stack;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; let s' be the state now in tp of the stack;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; push A then *goto*[s', A] on top of the stack;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output the production A &rarr; B<br>
+&nbsp;&nbsp;&nbsp;**end**<br>
+&nbsp;&nbsp;&nbsp;**else if** *action*[s, a] = accept **then**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**return**<br>
+&nbsp;&nbsp;&nbsp;**else** *error()*<br>
+**end**<br>
