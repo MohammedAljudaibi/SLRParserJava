@@ -1,5 +1,3 @@
-//Mohammed Aljudaibi 2035778 mabdulraheemaljudaibi@stu.kau.edu.sa
-//Motasem Bamashmous 2045661 mmohammedbamashmous@stu.kau.edu.sa
 //Group Project Part 2 SLR Parser
 package slrparser;
 
@@ -164,11 +162,33 @@ public class SLRParser {
                     lookahead = in.next();
                 }
                 
-                //if action is reduce
-                //TODO
+               //if action is reduce
+                else if (action.charAt(0) == 'r') {
+                    //the number of the production rule and print out the rule
+                    int ruleNum = Integer.parseInt(nextState) - 1;
+                    System.out.println("Reduce by " + rules[ruleNum]);
+                    
+                    //pop the stack elements
+                    for(int i = 0; i < poppers[ruleNum]; i++){
+                        s.pop();
+                    }
+                    
+                    //push into the stack the non-terminal of the production rule and the next state
+                    String pushed = s.lastElement() + rules[ruleNum].charAt(0);
+                    s.push(rules[ruleNum].charAt(0) + "");
+                    nextState = (String) h.get(pushed);
+                    s.push(nextState);
+                    
+                    //changes the state into the next state
+                    state = Integer.parseInt(nextState);  
+                }
                 
                 //if it is accept
-                //TODO
+                else if(action.charAt(0) == 'a'){
+                    //print out accept
+                    System.out.println("Accept");
+                    System.out.println();
+                } 
             }
         }
     }
